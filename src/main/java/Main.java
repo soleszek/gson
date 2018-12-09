@@ -12,8 +12,8 @@ public class Main {
         Gson gson = new Gson();
         String file = "/home/sylwester/Dokumenty/projekty/sklep/test-ok.json";
 
-        String user = "oleszek";
-        double productId = 8.0;
+        String user = "kasianka";
+        double productId = 228.0;
 
         List<ProductCart> productCartList = new ArrayList<>();
 
@@ -30,30 +30,39 @@ public class Main {
         boolean isUserExist = false;
         boolean isProductExistInCart = false;
 
-        /*ProductCart productCart = new ProductCart();
-        productCart.setUsername(user);
-
-        List<Product> products = new ArrayList<>();
-        Product product = new Product();
-        product.setProductId(productId);
-        product.setQuantity(11.0);
-        products.add(product);
-        productCart.setProducts(products);
-        productCartList.add(productCart);*/
-
         for(ProductCart pc : productCartList){
             if(pc.getUsername().equals(user)){
                 isUserExist = true;
-                Product product = new Product();
                 for(Product p : pc.getProducts()){
                     if(p.getProductId().equals(productId)){
-                        System.out.println(p);
+                        isProductExistInCart = true;
+                        p.setQuantity(p.getQuantity() + 1);
                     }
+                }
+                if(isProductExistInCart == false){
+                    Product product = new Product();
+                    product.setProductId(productId);
+                    product.setQuantity(1.0);
+                    List<Product> products = pc.getProducts();
+                    products.add(product);
+                    pc.setProducts(products);
                 }
             }
         }
 
-        /*String json = gson.toJson(productCartList, type);
+        if(isUserExist == false){
+            ProductCart productCart = new ProductCart();
+            productCart.setUsername(user);
+            List<Product> products = new ArrayList<>();
+            Product product = new Product();
+            product.setProductId(productId);
+            product.setQuantity(1.0);
+            products.add(product);
+            productCart.setProducts(products);
+            productCartList.add(productCart);
+        }
+
+        String json = gson.toJson(productCartList, type);
 
         try {
             FileWriter writer = new FileWriter(file);
@@ -61,49 +70,7 @@ public class Main {
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
-
-        /*for(Map.Entry<String, List<Product>> s : map.entrySet()) {
-
-            if (s.getKey().equals(user)) {
-                isUserExist = true;
-                userList = s.getValue();
-                System.out.println(userList.get(3));
-                for(Product l : userList){
-                    if(l.getProductId() == productId){
-                        *//*isProductExistInCart = true;
-                        l.setQuantity(l.getQuantity() + 1);*//*
-                    }
-
-                }
-            }
-        }*/
-
-                /*if(isProductExistInCart == false){
-                    map.get(user).add(new Product(productId, 1));
-                }*/
-
-        /*if(isUserExist == false){
-            List<Product> newClientsCart = new ArrayList<>();
-            newClientsCart.add(new Product(productId, 1));
-            map.put(user, newClientsCart);
-        }*/
-
-        /*List<Product> productsInCart = new ArrayList<Product>();
-
-        String json = gson.toJson(map, Map.class);
-
-        try {
-            FileWriter writer = new FileWriter(file);
-            writer.write(json);
-            writer.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-
-            //System.out.println(map);
+        }
     }
 
 }
