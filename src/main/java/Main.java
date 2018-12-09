@@ -12,16 +12,20 @@ public class Main {
         Gson gson = new Gson();
         String file = "/home/sylwester/Dokumenty/projekty/sklep/test-ok.json";
 
-        String user = "lciuraj";
-        double productId = 10.0;
+        String user = "juzyt";
+        double productId = 111.0;
 
-        InputStream is = new FileInputStream(file);
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader reader = new BufferedReader(isr);
+        List<ProductCart> productCartList = new ArrayList<>();
 
         Type type = new TypeToken<ArrayList<ProductCart>>(){}.getType();
-        ArrayList<ProductCart> productCartList = gson.fromJson(reader, type);
 
+        InputStream is = new FileInputStream(file);
+
+        if(is != null) {
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader reader = new BufferedReader(isr);
+            productCartList = gson.fromJson(reader, type);
+        }
 
         boolean isUserExist = false;
         boolean isProductExistInCart = false;
@@ -32,7 +36,7 @@ public class Main {
         List<Product> products = new ArrayList<>();
         Product product = new Product();
         product.setProductId(productId);
-        product.setQuantity(1.0);
+        product.setQuantity(11.0);
         products.add(product);
         productCart.setProducts(products);
         productCartList.add(productCart);
