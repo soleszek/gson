@@ -12,8 +12,8 @@ public class Main {
         Gson gson = new Gson();
         String file = "/home/sylwester/Dokumenty/projekty/sklep/test-ok.json";
 
-        String user = "kasianka";
-        double productId = 228.0;
+        String user = "mama88";
+        double productId = 54.0;
 
         List<ProductCart> productCartList = new ArrayList<>();
 
